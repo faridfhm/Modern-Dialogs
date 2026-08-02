@@ -1,0 +1,69 @@
+# --------------------------------------------------------------------------------------
+# Delphi .gitignore
+# For VCL projects, removing temporary and compiled files.
+# --------------------------------------------------------------------------------------
+
+# Compiled/Output Files
+# ---------------------
+*.exe
+*.dll
+*.bpl
+*.dcp
+*.dcu
+*.obj
+*.tds
+*.map
+*.a
+*.lib
+*.so
+*.o
+*.rsm
+*.stat
+*.cgs
+
+# Project/Build Files
+# -------------------
+*.dsk
+*.opt
+*.aps
+*.dof
+*.local
+*.identcache
+*.res
+*.cfg
+*.hpp
+*.bak
+*.~*
+*.#*
+
+# Auto-Generated Folders
+# ----------------------
+__history/
+__recovery/
+Win32/
+Win64/
+MacOSX/
+iOSDevice/
+iOSSimulator/
+Android/
+output/
+.gdb_history
+.idea/
+.vs/
+.svn/
+
+# Custom Files (for specific libraries or tools)
+# ----------------------------------------------
+*.tvsconfig  # Thinfinity VirtualUI config
+*.fmx.res    # FireMonkey resources
+*.dfm.bak    # Form backup files
+
+# Database Files (common local db files that should not be tracked)
+# -----------------------------------------------------------------
+*.db
+*.mdb
+*.accdb
+
+# Redgate Files
+# -----------------------------------------------------------------
+*.rgcomp
