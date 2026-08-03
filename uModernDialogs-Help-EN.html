@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ModernDialogs4D — Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF9F6;
+    --panel:#14171F;
+    --panel-2:#1D212C;
+    --ink:#1B1E27;
+    --sub:#6B7280;
+    --line:#E7E4DC;
+    --code-bg:#12141B;
+    --info:#3B82F6;
+    --success:#22C55E;
+    --warning:#F59E0B;
+    --error:#EF4444;
+    --question:#14B8A6;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:15.5px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--question);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .layout{display:flex;max-width:1180px;margin:0 auto;}
+
+  /* Sidebar */
+  nav.side{
+    width:236px;flex-shrink:0;
+    position:sticky;top:0;align-self:flex-start;
+    height:100vh;overflow-y:auto;
+    background:var(--panel);
+    color:#C9CDD8;
+    padding:28px 20px 40px;
+  }
+  nav.side .brand{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:17px;color:#fff;
+    display:flex;align-items:center;gap:8px;margin-bottom:4px;
+  }
+  nav.side .brand small{
+    display:block;font-family:'Inter',sans-serif;font-weight:400;
+    font-size:11.5px;color:#8B90A0;margin-top:2px;
+  }
+  nav.side .chips{display:flex;gap:5px;margin:16px 0 22px;flex-wrap:wrap;}
+  nav.side .chips span{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  nav.side ul{list-style:none;margin:0;padding:0;}
+  nav.side li a{
+    display:block;padding:6px 10px;border-radius:6px;
+    font-size:13.3px;color:#AEB3C2;margin-bottom:1px;
+  }
+  nav.side li a:hover{background:var(--panel-2);color:#fff;text-decoration:none;}
+  nav.side .grp{
+    font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:#666C7E;margin:20px 0 6px 10px;
+  }
+
+  main{flex:1;min-width:0;padding:56px 56px 100px;}
+
+  .hero{margin-bottom:40px;}
+  .hero .kicker{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;
+    color:var(--question);letter-spacing:.04em;margin-bottom:10px;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:40px;line-height:1.08;margin:0 0 14px;letter-spacing:-.01em;
+  }
+  .hero p.lead{font-size:16.5px;color:var(--sub);max-width:640px;margin:0 0 20px;}
+
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+  .badge{
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;
+    padding:5px 10px 5px 8px;border-radius:20px;
+    display:flex;align-items:center;gap:6px;
+    border:1px solid var(--line);color:var(--ink);background:#fff;
+  }
+  .badge i{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+  .hero-shot{
+    border-radius:14px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 20px 40px -20px rgba(20,23,31,.25);
+  }
+  .hero-shot img{display:block;width:100%;height:auto;}
+
+  section{margin:56px 0;scroll-margin-top:24px;}
+  h2{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:24px;
+    margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line);
+  }
+  h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;margin:26px 0 10px;}
+  p{margin:0 0 14px;}
+  ul,ol{padding-left:20px;margin:0 0 14px;}
+  li{margin-bottom:6px;}
+
+  code{
+    font-family:'JetBrains Mono',monospace;font-size:.87em;
+    background:#F0EEE6;padding:1.5px 5px;border-radius:4px;color:#8A3B00;
+  }
+  pre{
+    background:var(--code-bg);color:#E4E7EE;border-radius:10px;
+    padding:18px 20px;overflow-x:auto;margin:0 0 18px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;
+  }
+  pre code{background:none;padding:0;color:inherit;}
+
+  table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:14px;}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);}
+  th{font-family:'Space Grotesk',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);font-weight:600;}
+  tr:last-child td{border-bottom:none;}
+
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px;}
+  .feature{
+    border:1px solid var(--line);background:#fff;border-radius:12px;
+    padding:16px 18px;
+  }
+  .feature h4{
+    font-family:'Space Grotesk',sans-serif;font-size:14.5px;margin:0 0 6px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .feature p{font-size:13.5px;color:var(--sub);margin:0;}
+  .feature .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+  .lang-list{display:flex;flex-direction:column;gap:6px;margin:0 0 18px;}
+  .lang-list div{
+    display:flex;align-items:center;gap:10px;font-size:14px;
+    border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;
+  }
+  .lang-list code{margin-inline-start:auto;}
+
+  .callout{
+    border-left:3px solid var(--question);background:#F0FAF9;
+    padding:12px 16px;border-radius:0 8px 8px 0;font-size:14px;margin:0 0 18px;
+  }
+  .callout b{color:#0F766E;}
+
+  .method{
+    border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+    margin-bottom:16px;background:#fff;
+  }
+  .method .sig{
+    font-family:'JetBrains Mono',monospace;font-size:13px;
+    background:var(--code-bg);color:#E4E7EE;padding:10px 14px;border-radius:8px;
+    overflow-x:auto;margin-bottom:12px;
+  }
+  .method .ret{font-size:13.5px;color:var(--sub);}
+  .method .ret b{color:var(--ink);}
+
+  footer.gallery{
+    margin-top:70px;border-top:1px solid var(--line);padding-top:44px;
+  }
+  footer.gallery h2{border:none;padding:0;}
+  footer.gallery .shot{
+    border-radius:14px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 24px 50px -24px rgba(20,23,31,.28);
+  }
+  footer.gallery .shot img{display:block;width:100%;height:auto;}
+  footer.gallery .src{
+    margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sub);
+  }
+  footer.gallery .end{
+    text-align:center;color:var(--sub);font-size:12.5px;margin-top:60px;
+  }
+
+  @media(max-width:900px){
+    nav.side{display:none;}
+    main{padding:36px 22px 80px;}
+    h1{font-size:30px;}
+    .feature-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="side">
+  <div class="brand">ModernDialogs4D
+    <small>uModernDialogs.pas · Delphi VCL package</small>
+  </div>
+  <div class="chips">
+    <span style="background:var(--info)"></span>
+    <span style="background:var(--success)"></span>
+    <span style="background:var(--warning)"></span>
+    <span style="background:var(--error)"></span>
+    <span style="background:var(--question)"></span>
+  </div>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#features">Key features</a></li>
+    <li><a href="#install">Installation</a></li>
+    <li><a href="#types">Data types</a></li>
+    <li><a href="#style">TAppMessageItemStyle</a></li>
+    <li><a href="#core">TModernDialogs</a></li>
+    <li><a href="#internal">Internal classes</a></li>
+    <li><a href="#notes">Notes &amp; limits</a></li>
+    <li><a href="#example">Full example</a></li>
+    <li><a href="#gallery">Screenshot</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="hero" id="overview">
+    <div class="kicker">DELPHI · VCL · WINDOWS</div>
+    <h1>ModernDialogs4D</h1>
+    <p class="lead">A drop‑in replacement for <code>MessageDlg</code> and <code>ShowMessage</code> — borderless, rounded, RTL‑aware message dialogs and auto‑dismissing notifications for Delphi VCL applications.</p>
+    <div class="badges">
+      <span class="badge"><i style="background:var(--info)"></i>mtInfo</span>
+      <span class="badge"><i style="background:var(--success)"></i>mtSuccess</span>
+      <span class="badge"><i style="background:var(--warning)"></i>mtWarning</span>
+      <span class="badge"><i style="background:var(--error)"></i>mtError</span>
+      <span class="badge"><i style="background:var(--question)"></i>mtQuestion</span>
+    </div>
+    <div class="hero-shot"><img src="images/Image.png" alt="ModernDialogs4D sample dialogs"></div>
+  </div>
+
+  <section id="features">
+    <h2>Key Features</h2>
+    <div class="feature-grid">
+      <div class="feature"><h4><span class="dot" style="background:var(--question)"></span>Modern UI Design</h4><p>Borderless forms with rounded corners, drop shadows, and flat buttons.</p></div>
+      <div class="feature"><h4><span class="dot" style="background:var(--info)"></span>Full RTL &amp; LTR Support</h4><p>Intelligent layout for right‑to‑left (Persian/Arabic) and left‑to‑right languages.</p></div>
+      <div class="feature"><h4><span class="dot" style="background:var(--success)"></span>Notification Mode</h4><p>Auto‑dismissing messages with a countdown timer and progress bar.</p></div>
+      <div class="feature"><h4><span class="dot" style="background:var(--warning)"></span>Message Types</h4><p>Info, Success, Warning, Error, and Question/Confirm.</p></div>
+      <div class="feature"><h4><span class="dot" style="background:var(--error)"></span>Full Customization</h4><p>Font, background color, accent color, icon colors, button texts, and more.</p></div>
+      <div class="feature"><h4><span class="dot" style="background:#8B5CF6"></span>Built‑in Localization</h4><p>Ready‑to‑use translations, listed below.</p></div>
+    </div>
+    <div class="lang-list">
+      <div>🇮🇷 Persian <code>dlPersian</code></div>
+      <div>🇬🇧 English <code>dlEnglish</code></div>
+      <div>🇦🇪 Arabic <code>dlArabic</code></div>
+      <div>🇧🇷 Brazilian Portuguese <code>dlPortugueseBR</code></div>
+      <div>⚙️ Custom language support <code>dlCustom</code></div>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2>Installation &amp; Usage</h2>
+    <p>The <code>uModernDialogs.pas</code> unit is part of the Delphi package <b>ModernDialogs4D</b>, and is meant to be used by installing that package in the Delphi IDE (rather than adding the <code>.pas</code> file directly to a project).</p>
+
+    <h3>1. Installing the package</h3>
+    <ol>
+      <li>Open the <code>ModernDialogs4D.dpk</code> package project (which contains <code>uModernDialogs.pas</code>) in the Delphi IDE.</li>
+      <li>Right‑click the package and choose <b>Install</b> so the <code>TModernDialogs</code> component is added to the Component Palette.</li>
+      <li>Add the package's output folder (<code>.bpl</code> / <code>.dcp</code>) to Delphi's <b>Library Path</b> for use in other projects.</li>
+      <li>The <code>TModernDialogs</code> component is now visible in the palette and can be dragged onto a form.</li>
+    </ol>
+    <div class="callout"><b>Note —</b> Installing a package is different from adding it as a <i>Required Package</i> (runtime package). For code‑only use, add <code>ModernDialogs4D</code> as a <i>Requires</i> entry, or link it statically.</div>
+
+    <h3>2. Using it in code</h3>
+    <ol>
+      <li>Add <code>uModernDialogs</code> to the <code>uses</code> clause.</li>
+      <li>Create a <code>TModernDialogs</code> instance — drag from the palette, or dynamically in code.</li>
+      <li>Call <code>Info</code>, <code>Success</code>, <code>Warning</code>, <code>Error</code>, <code>Confirm</code>, <code>ShowNotification</code>, or the general‑purpose <code>Ask</code>.</li>
+    </ol>
+<pre><code>uses
+  uModernDialogs;
+
+var
+  Dlg: TModernDialogs;
+begin
+  Dlg := TModernDialogs.Create(nil);
+  try
+    Dlg.Language := dlPersian;          // sets language, switches to RTL automatically
+    Dlg.Font.Name := 'Segoe UI';
+    Dlg.Font.Size := 10;
+
+    Dlg.Info('The operation completed successfully.');
+    Dlg.Success('The file was saved successfully.');
+    Dlg.Warning('Disk space is running low.');
+    Dlg.Error('Could not connect to the server.');
+
+    if Dlg.Confirm('Are you sure you want to delete this item?') then
+      // proceed with deletion
+
+    Dlg.ShowNotification('Changes saved.', 3000);
+  finally
+    Dlg.Free;
+  end;
+end;</code></pre>
+    <p style="font-size:13.5px;color:var(--sub)">Since <code>TModernDialogs</code> descends from <code>TComponent</code>, one instance can be kept alive on a form and reused rather than created/freed each time.</p>
+  </section>
+
+  <section id="types">
+    <h2>Data Types</h2>
+
+    <h3><code>TAppMessageType</code></h3>
+    <p>Determines the accent color, badge color, and icon of a dialog.</p>
+    <table>
+      <tr><th>Value</th><th>Meaning</th></tr>
+      <tr><td><code>mtInfo</code></td><td>Informational — orange, <code>i</code> icon</td></tr>
+      <tr><td><code>mtSuccess</code></td><td>Success — green, ✔ icon</td></tr>
+      <tr><td><code>mtWarning</code></td><td>Warning — blue, ⚠ icon</td></tr>
+      <tr><td><code>mtError</code></td><td>Error — purple/blue, ✘ icon</td></tr>
+      <tr><td><code>mtQuestion</code></td><td>Question — yellow, ؟ icon</td></tr>
+    </table>
+
+    <h3><code>TDialogLanguage</code></h3>
+    <table>
+      <tr><th>Value</th><th>Language</th><th>Direction</th></tr>
+      <tr><td><code>dlEnglish</code></td><td>English (default)</td><td>LTR</td></tr>
+      <tr><td><code>dlPortugueseBR</code></td><td>Brazilian Portuguese</td><td>LTR</td></tr>
+      <tr><td><code>dlPersian</code></td><td>Persian</td><td>RTL</td></tr>
+      <tr><td><code>dlArabic</code></td><td>Arabic</td><td>RTL</td></tr>
+      <tr><td><code>dlCustom</code></td><td>Custom (empty strings)</td><td>LTR</td></tr>
+    </table>
+    <p>Changing <code>Language</code> (except to <code>dlCustom</code>) auto‑updates <code>BiDiMode</code>. Setting <code>BiDiMode</code> directly switches <code>Language</code> to <code>dlCustom</code>.</p>
+
+    <h3><code>TDialogTranslation</code></h3>
+    <p>Record holding all translatable strings: <code>TitleInfo</code>, <code>TitleSuccess</code>, <code>TitleWarning</code>, <code>TitleError</code>, <code>TitleConfirm</code>, <code>TitleNotify</code>, <code>BtnOk</code>, <code>BtnClose</code>, <code>BtnYes</code>, <code>BtnNo</code>, <code>CountdownFmt</code>, <code>BiDiMode</code>. The constant array <code>TRANSLATIONS</code> holds values per language.</p>
+  </section>
+
+  <section id="style">
+    <h2>TAppMessageItemStyle</h2>
+    <p>Visual style of a message type (descends from <code>TPersistent</code>, editable in the Object Inspector).</p>
+    <table>
+      <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+      <tr><td><code>AccentColor</code></td><td>TColor</td><td>Side accent bar color</td></tr>
+      <tr><td><code>BadgeColor</code></td><td>TColor</td><td>Badge circle background</td></tr>
+      <tr><td><code>IconChar</code></td><td>string</td><td>Glyph shown in the badge</td></tr>
+      <tr><td><code>IconColor</code></td><td>TColor</td><td>Icon glyph color</td></tr>
+    </table>
+    <p>Each of the five message types has its own style instance, preset in the <code>TModernDialogs</code> constructor and editable at design or run time.</p>
+  </section>
+
+  <section id="core">
+    <h2>TModernDialogs — the main class</h2>
+
+    <h3>Published properties</h3>
+    <table>
+      <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>Font</code></td><td>TFont</td><td>Segoe UI, 9</td><td>Base font for all dialogs</td></tr>
+      <tr><td><code>BackgroundColor</code></td><td>TColor</td><td>clWhite</td><td>Dialog body background</td></tr>
+      <tr><td><code>Language</code></td><td>TDialogLanguage</td><td>dlEnglish</td><td>Language of default texts</td></tr>
+      <tr><td><code>BiDiMode</code></td><td>TBiDiMode</td><td>bdLeftToRight</td><td>Layout direction</td></tr>
+      <tr><td><code>StyleInfo / StyleSuccess / StyleWarning / StyleError / StyleQuestion</code></td><td>TAppMessageItemStyle</td><td>—</td><td>Per‑type visual style</td></tr>
+    </table>
+
+    <h3>Methods</h3>
+
+    <div class="method">
+      <div class="sig">function Ask(const ATitle, AMessage: string; AMsgType: TAppMessageType; const AButtons: array of string): Integer;</div>
+      <p>The core method. Shows a modal dialog with a title, message, and custom buttons.</p>
+      <p class="ret"><b>Returns:</b> the clicked button's index (0‑based). The first button is styled as primary and gets initial focus.</p>
+<pre><code>case Dlg.Ask('Choose', 'Which option do you want?', mtQuestion, ['Yes', 'No', 'Cancel']) of
+  0: ShowMessage('Yes was selected');
+  1: ShowMessage('No was selected');
+  2: ShowMessage('Cancelled');
+end;</code></pre>
+    </div>
+
+    <div class="method">
+      <div class="sig">procedure Info(const Msg: string; const ATitle: string = '');</div>
+      <p class="ret">Info dialog with a single OK button. Empty <code>ATitle</code> falls back to <code>TitleInfo</code>.</p>
+    </div>
+    <div class="method">
+      <div class="sig">procedure Success(const Msg: string; const ATitle: string = '');</div>
+      <p class="ret">Success dialog with a single Close button.</p>
+    </div>
+    <div class="method">
+      <div class="sig">procedure Warning(const Msg: string; const ATitle: string = '');</div>
+      <p class="ret">Warning dialog with a single OK button.</p>
+    </div>
+    <div class="method">
+      <div class="sig">procedure Error(const Msg: string; const ATitle: string = '');</div>
+      <p class="ret">Error dialog with a single Close button.</p>
+    </div>
+    <div class="method">
+      <div class="sig">function Confirm(const Msg: string; const ATitle: string = ''): Boolean;</div>
+      <p class="ret"><b>Returns:</b> <code>True</code> when the user clicks "Yes" (the first button), <code>False</code> otherwise.</p>
+    </div>
+    <div class="method">
+      <div class="sig">procedure ShowNotification(const Msg: string; TimeoutMs: Integer = 3000);</div>
+      <p class="ret">Button‑less notification that auto‑closes after <code>TimeoutMs</code>, with a progress bar and countdown text (<code>CountdownFmt</code>).</p>
+    </div>
+    <div class="method">
+      <div class="sig">function GetTranslation: TDialogTranslation;</div>
+      <p class="ret">Returns the translation record for the current <code>Language</code>.</p>
+    </div>
+    <div class="method">
+      <div class="sig">function GetStyle(AType: TAppMessageType): TAppMessageItemStyle;</div>
+      <p class="ret">Returns the style object for the given message type.</p>
+    </div>
+  </section>
+
+  <section id="internal">
+    <h2>Internal (implementation) classes</h2>
+    <p>Not normally called directly by consumers of the unit:</p>
+    <ul>
+      <li><b>TFlatButton</b> (<code>TCustomControl</code>) — a custom flat button with hover/pressed/focus effects, used in the dialog footer.</li>
+      <li><b>TfrmModernDialog</b> (<code>TForm</code>) — a borderless (<code>bsNone</code>) form with rounded corners and a drop shadow that forms the dialog body. Its <code>Execute</code> method handles layout, text measurement, positioning, and modal display.</li>
+    </ul>
+    <p>Helper functions: <code>AlterColor</code> (lighten/darken a color for hover/border effects) and <code>CalcTextHeight</code> (measures multi‑line text to auto‑size the dialog).</p>
+  </section>
+
+  <section id="notes">
+    <h2>Notes &amp; Limitations</h2>
+    <ul>
+      <li>VCL‑based and Windows‑only (depends on <code>Winapi.Windows</code>).</li>
+      <li>Dialogs are shown modally (<code>ShowModal</code>) except <code>ShowNotification</code>, which self‑closes.</li>
+      <li>Height auto‑sizes to the message; width is fixed at 360px.</li>
+      <li>For other languages, set <code>Language := dlCustom</code> and fill in <code>TRANSLATIONS[dlCustom]</code>, or call <code>Ask</code> directly with custom text.</li>
+      <li>Colors are hex RGB literals in code; change the palette via the <code>StyleXXX</code> properties.</li>
+      <li>Setting <code>Language</code> to <code>dlPersian</code> or <code>dlArabic</code> automatically mirrors the layout to RTL.</li>
+    </ul>
+  </section>
+
+  <section id="example">
+    <h2>Full Example</h2>
+<pre><code>procedure TForm1.btnSaveClick(Sender: TObject);
+var
+  Dlg: TModernDialogs;
+begin
+  Dlg := TModernDialogs.Create(Self);
+  try
+    Dlg.Language := dlEnglish;
+    Dlg.Font.Name := 'Segoe UI';
+    Dlg.Font.Size := 10;
+
+    if not Dlg.Confirm('Do you want to save the changes?') then
+      Exit;
+
+    try
+      // ... save operation ...
+      Dlg.ShowNotification('Changes saved successfully.', 2500);
+    except
+      on E: Exception do
+        Dlg.Error('Error while saving: ' + E.Message);
+    end;
+  finally
+    Dlg.Free;
+  end;
+end;</code></pre>
+  </section>
+
+  <footer class="gallery" id="gallery">
+    <h2>Screenshot</h2>
+    <div class="shot"><img src="images/Image.png" alt="ModernDialogs4D — Info, Success, Warning, Error, Confirm across languages"></div>
+    <div class="src">Source: github.com/faridfhm/Modern-Dialogs/blob/main/images/Image.png</div>
+    <div class="end">ModernDialogs4D · uModernDialogs.pas — Delphi VCL unit documentation</div>
+  </footer>
+
+</main>
+</div>
+</body>
+</html>
